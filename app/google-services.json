@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "454890821374",
+    "project_id": "mypuskesmas-1e851",
+    "storage_bucket": "mypuskesmas-1e851.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:454890821374:android:fed1cc573ae58985c677af",
+        "android_client_info": {
+          "package_name": "com.tapisdev.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "454890821374-u0lq4vhi2kr5uabtt37h2tuu4s1tbe7t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tapisdev.myapplication",
+            "certificate_hash": "10a6740e6a410954f4d3983063fd02a71175ae62"
+          }
+        },
+        {
+          "client_id": "454890821374-497avdk678fn2vde5eo5q0650d8hm34k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAs5cV0p9nfxTRBw9n31IomH9QUevSNdA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "454890821374-497avdk678fn2vde5eo5q0650d8hm34k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
