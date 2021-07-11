@@ -25,6 +25,9 @@ open class BaseFragment : Fragment() {
     val myDB = FirebaseFirestore.getInstance()
 
     val userRef = myDB.collection("users")
+    val settingsRef = myDB.collection("settings")
+    val puskesRef = myDB.collection("puskesmas")
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
