@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="Selamat Datang"
+                android:text="Login Admin"
                 android:textColor="@color/white"
                 android:textSize="26sp"
                 android:textStyle="bold" />
@@ -54,7 +54,7 @@
 
 
                 <EditText
-                    android:id="@+id/editText_email_login_activity"
+                    android:id="@+id/editText_email"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -94,7 +94,7 @@
                     android:layout_marginRight="10dp" />
 
                 <EditText
-                    android:id="@+id/editText_password_login_activity"
+                    android:id="@+id/editText_password"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -123,8 +123,8 @@
                 android:layout_marginTop="30dp"
                 android:weightSum="1">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_login_activity"
+                <Button
+                    android:id="@+id/btnLogin"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -134,7 +134,6 @@
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     android:textStyle="bold" />
-
 
             </LinearLayout>
 

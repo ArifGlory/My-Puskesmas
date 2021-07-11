@@ -26,7 +26,7 @@ import kotlin.collections.ArrayList
 
 class AboutFragment : BaseFragment() {
 
-
+    lateinit var btnLoginAdmin : Button
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,7 +35,7 @@ class AboutFragment : BaseFragment() {
     ): View? {
 
         val root = inflater.inflate(R.layout.fragment_about, container, false)
-
+        btnLoginAdmin = root.findViewById(R.id.btnLoginAdmin)
 
         btnLoginAdmin.setOnClickListener {
             val i = Intent(requireContext(),MainActivity::class.java)
