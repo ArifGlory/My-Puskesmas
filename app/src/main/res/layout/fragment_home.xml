@@ -135,7 +135,7 @@
 
 
                 <Button
-                    android:id="@+id/btn_featured"
+                    android:id="@+id/btn_view_all"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"

@@ -18,6 +18,7 @@ import com.synnapps.carouselview.CarouselView
 import com.synnapps.carouselview.ImageListener
 import com.tapisdev.cateringtenda.base.BaseFragment
 import com.tapisdev.myapplication.R
+import com.tapisdev.myapplication.activity.admin.ListPuskesmasActivity
 import com.tapisdev.myapplication.adapter.AdapterPuskesmas
 import com.tapisdev.myapplication.model.Puskesmas
 import java.text.NumberFormat
@@ -30,6 +31,7 @@ class HomeFragment : BaseFragment() {
 
     lateinit var animation_view_puskes : LottieAnimationView
     lateinit var rv_puskesmas : RecyclerView
+    lateinit var btn_view_all : Button
 
     var TAG_GET = "getPuskes"
     lateinit var adapter: AdapterPuskesmas
@@ -44,11 +46,17 @@ class HomeFragment : BaseFragment() {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         animation_view_puskes = root.findViewById(R.id.animation_view_puskes)
         rv_puskesmas = root.findViewById(R.id.rv_puskesmas)
+        btn_view_all = root.findViewById(R.id.btn_view_all)
 
         adapter = AdapterPuskesmas(listPuskesmas)
         rv_puskesmas.setHasFixedSize(true)
         rv_puskesmas.layoutManager = LinearLayoutManager(requireContext()) as RecyclerView.LayoutManager?
         rv_puskesmas.adapter = adapter
+
+        btn_view_all.setOnClickListener {
+            val i = Intent(requireActivity(), ListPuskesmasActivity::class.java)
+            startActivity(i)
+        }
 
         getDataPuskes()
         return root

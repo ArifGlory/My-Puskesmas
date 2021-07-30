@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.tapisdev.myapplication.R
+import com.tapisdev.myapplication.activity.admin.DetailPuskesmasActivity
 import com.tapisdev.myapplication.model.Puskesmas
 import com.tapisdev.mysteam.model.UserModel
 import com.tapisdev.mysteam.model.UserPreference
@@ -54,9 +55,9 @@ class AdapterPuskesmas(private val list:ArrayList<Puskesmas>) : RecyclerView.Ada
 
         holder.view.linePuskesmas.setOnClickListener {
             Log.d("adapterIsi",""+list.get(position).toString())
-           /* val i = Intent(holder.view.linePuskesmas.context, DetailSteamActivity::class.java)
-            i.putExtra("steam",list.get(position) as Serializable)
-            holder.view.linePuskesmas.context.startActivity(i)*/
+            val i = Intent(holder.view.linePuskesmas.context, DetailPuskesmasActivity::class.java)
+            i.putExtra("puskesmas",list.get(position) as Serializable)
+            holder.view.linePuskesmas.context.startActivity(i)
         }
 
     }
