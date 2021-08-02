@@ -21,8 +21,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-        <activity android:name=".activity.admin.ListPuskesmasActivity"
-            android:label="List Puskesmas"></activity>
+        <activity android:name=".activity.admin.EditPuskesmasActivity"
+            android:label="Edit Puskesmas"></activity>
+        <activity
+            android:name=".activity.admin.ListPuskesmasActivity"
+            android:label="List Puskesmas" />
         <activity
             android:name=".activity.admin.ProfilAdminActivity"
             android:theme="@style/AppTheme.NoActionBar" />

@@ -68,6 +68,8 @@ class AddPuskesmasActivity : BaseActivity(),PermissionHelper.PermissionListener 
         }
     }
 
+
+
     fun checkValidation(){
         var getName = edName.text.toString()
         var getAlamat = edAlamat.text.toString()

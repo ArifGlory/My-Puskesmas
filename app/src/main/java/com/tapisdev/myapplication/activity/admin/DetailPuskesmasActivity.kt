@@ -33,7 +33,9 @@ class DetailPuskesmasActivity : BaseActivity() {
             startActivity(i)
         }
         btnEditPuskesmas.setOnClickListener {
-
+            val i = Intent(this,EditPuskesmasActivity::class.java)
+            i.putExtra("puskesmas",puskesmas as Serializable)
+            startActivity(i)
         }
 
         updateUI()
