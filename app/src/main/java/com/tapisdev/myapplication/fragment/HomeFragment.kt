@@ -4,10 +4,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.Window
+import android.view.*
 import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +29,8 @@ class HomeFragment : BaseFragment() {
     lateinit var animation_view_puskes : LottieAnimationView
     lateinit var rv_puskesmas : RecyclerView
     lateinit var btn_view_all : Button
+    lateinit var btn_submit_search : Button
+    lateinit var edt_search : EditText
 
     var TAG_GET = "getPuskes"
     lateinit var adapter: AdapterPuskesmas
@@ -47,6 +46,8 @@ class HomeFragment : BaseFragment() {
         animation_view_puskes = root.findViewById(R.id.animation_view_puskes)
         rv_puskesmas = root.findViewById(R.id.rv_puskesmas)
         btn_view_all = root.findViewById(R.id.btn_view_all)
+        btn_submit_search = root.findViewById(R.id.btn_submit_search)
+        edt_search = root.findViewById(R.id.edt_search)
 
         adapter = AdapterPuskesmas(listPuskesmas)
         rv_puskesmas.setHasFixedSize(true)
@@ -56,6 +57,16 @@ class HomeFragment : BaseFragment() {
         btn_view_all.setOnClickListener {
             val i = Intent(requireActivity(), ListPuskesmasActivity::class.java)
             startActivity(i)
+        }
+        btn_submit_search.setOnClickListener {
+            var keyword = edt_search.text.toString()
+            if (keyword.equals("") || keyword.length == 0){
+                showErrorMessage("Anda belum menuliskan kata kunci pencarian")
+            }else{
+                val i = Intent(requireActivity(), ListPuskesmasActivity::class.java)
+                i.putExtra("keyword",keyword)
+                startActivity(i)
+            }
         }
 
         getDataPuskes()

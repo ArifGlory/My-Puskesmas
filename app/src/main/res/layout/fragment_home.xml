@@ -64,7 +64,7 @@
 
 
                             <EditText
-                                android:id="@+id/edt_name"
+                                android:id="@+id/edt_search"
                                 android:layout_width="match_parent"
                                 android:layout_height="45dp"
                                 android:layout_gravity="center"
@@ -81,7 +81,7 @@
                         </LinearLayout>
 
                         <Button
-                            android:id="@+id/btn_submit"
+                            android:id="@+id/btn_submit_search"
                             style="?android:attr/buttonBarButtonStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"

@@ -1,5 +1,6 @@
 package com.tapisdev.myapplication.activity.admin
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -17,7 +18,9 @@ import kotlinx.android.synthetic.main.activity_list_puskesmas.*
 class ListPuskesmasActivity : BaseActivity() {
 
     var TAG_GET = "getPuskesmas"
+    var keyword = ""
     lateinit var adapter: AdapterPuskesmas
+    lateinit var i : Intent
 
     var listPuskesmas = ArrayList<Puskesmas>()
 
@@ -25,6 +28,10 @@ class ListPuskesmasActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_puskesmas)
         mUserPref = UserPreference(this)
+        i = intent
+        if (intent.hasExtra("keyword")){
+            keyword = i.getStringExtra("keyword").toString()
+        }
 
         adapter = AdapterPuskesmas(listPuskesmas)
         rvPuskesmas.setHasFixedSize(true)
@@ -37,6 +44,7 @@ class ListPuskesmasActivity : BaseActivity() {
     fun getDataPuskes(){
         /*val sdf = SimpleDateFormat("yyyy-MM-dd")
         val currentDate = sdf.format(Date())*/
+        Log.d("pencarian","keyword "+keyword)
         puskesRef.orderBy("created_at", Query.Direction.DESCENDING)
             .get().addOnSuccessListener { result ->
                 listPuskesmas.clear()
@@ -45,7 +53,17 @@ class ListPuskesmasActivity : BaseActivity() {
                     //Log.d(TAG_GET_Sparepart, "Datanya : "+document.data)
                     var puskes : Puskesmas = document.toObject(Puskesmas::class.java)
                     puskes.id_puskesmas = document.id
-                    listPuskesmas.add(puskes)
+
+                    if (!keyword.equals("") || keyword != ""){
+                        var nama = puskes.nama_puskesmas.toLowerCase()
+                        keyword = keyword.toLowerCase()
+
+                        if(nama.contains(keyword)){
+                            listPuskesmas.add(puskes)
+                        }
+                    }else{
+                        listPuskesmas.add(puskes)
+                    }
 
                 }
                 if (listPuskesmas.size == 0){
