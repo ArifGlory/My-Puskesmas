@@ -3,6 +3,7 @@ package com.tapisdev.myapplication.activity.pengguna
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -11,6 +12,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.annotation.RequiresApi
+import com.akexorcist.googledirection.DirectionCallback
+import com.akexorcist.googledirection.GoogleDirection
+import com.akexorcist.googledirection.constant.TransportMode
+import com.akexorcist.googledirection.model.Direction
+import com.akexorcist.googledirection.model.Info
+import com.akexorcist.googledirection.util.DirectionConverter
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -18,10 +25,14 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PolylineOptions
 import com.tapisdev.cateringtenda.base.BaseActivity
 import com.tapisdev.myapplication.R
 import com.tapisdev.myapplication.model.Puskesmas
+import com.tapisdev.myapplication.util.Astar
 import com.tapisdev.myapplication.util.PermissionHelper
+import es.dmoral.toasty.Toasty
+import kotlinx.android.synthetic.main.activity_lokasi_puskesmas.*
 
 class LokasiPuskesmasActivity : BaseActivity(), OnMapReadyCallback,PermissionHelper.PermissionListener,LocationListener {
 
@@ -30,6 +41,7 @@ class LokasiPuskesmasActivity : BaseActivity(), OnMapReadyCallback,PermissionHel
     lateinit var lm : LocationManager
     lateinit var puskesmas : Puskesmas
     lateinit var  permissionHelper : PermissionHelper
+    lateinit var myAstar: Astar
 
     var lat  = 0.0
     var lon  = 0.0
@@ -47,12 +59,34 @@ class LokasiPuskesmasActivity : BaseActivity(), OnMapReadyCallback,PermissionHel
         permissionHelper = PermissionHelper(this)
         permissionHelper.setPermissionListener(this)
 
+        myAstar = Astar(this)
+
         i = intent
         puskesmas = i.getSerializableExtra("puskesmas") as Puskesmas
         lat = puskesmas.lat.toDouble()
         lon = puskesmas.lon.toDouble()
 
         permissionLocation()
+
+        rlRute.setOnClickListener {
+            if (myLat != 0.0){
+                showLoading(this)
+                myAstar.doAstar()
+
+                var origin =  LatLng(myLat,myLon)
+                var destination = LatLng(lat,lon)
+                drawJalur(origin,destination)
+            }else{
+                showInfoMessage("lokasi anda tidak dapat ditemukan, mohon aktifkan GPS anda")
+                try {
+                    // Request location updates
+                    lm?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener)
+                } catch(ex: SecurityException) {
+                    Log.d("getLoc", "Security Exception, no location available")
+                }
+            }
+        }
+
         if ( !lm.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
             // Call your Alert message
             showInfoMessage("gps tidak aktif, layanan ini memerlukan GPS untuk Aktif")
@@ -140,5 +174,42 @@ class LokasiPuskesmasActivity : BaseActivity(), OnMapReadyCallback,PermissionHel
             //showInfoMessage("lat :"+myLat + " | lon:"+myLon)
 
         }
+    }
+
+    fun drawJalur(koordinatAwal : LatLng,koordinatAkhir : LatLng){
+        dismissLoading()
+        GoogleDirection.withServerKey("AIzaSyBYR_9WSimaGMFhwRyTSy25DKPrSnl97uc")
+            .from(koordinatAwal)
+            .to(koordinatAkhir)
+            .transportMode(TransportMode.DRIVING)
+            .execute(object : DirectionCallback {
+                override fun onDirectionSuccess(direction: Direction?) {
+                    if (direction!!.isOK) {
+                        val route =
+                            direction.routeList[0]
+                        val leg = route.legList[0]
+                        val stepList =
+                            leg.stepList
+                        val nodeList: ArrayList<LatLng> = leg.directionPoint
+
+                        var distanceInfo  = leg.distance
+                        var jarak = distanceInfo.text
+                        jarak = jarak.dropLast(2)
+
+                        tvJarak.setText(jarak+" KM")
+                        var polylineOptions : PolylineOptions
+                        polylineOptions = DirectionConverter.createPolyline(this@LokasiPuskesmasActivity,nodeList,6,
+                            Color.BLUE)
+                        mMap.addPolyline(polylineOptions)
+
+                    }
+                }
+
+                override fun onDirectionFailure(t: Throwable) {
+                    Log.d("astar", "Gagal mendapatkan graph ")
+                    Toasty.error(applicationContext, "Tidak dapat menemukan rute", Toasty.LENGTH_SHORT)
+                        .show()
+                }
+            })
     }
 }
