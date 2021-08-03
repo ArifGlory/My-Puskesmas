@@ -121,7 +121,7 @@
                         android:textSize="14sp" />
 
                     <RelativeLayout
-                        android:id="@+id/rlImage"
+                        android:id="@+id/rlImageEdit"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="5dp"
@@ -189,7 +189,7 @@
                             android:layout_weight="1"
                             app:backgroundTint="@null"
                             android:background="@drawable/button_login_skip_background"
-                            android:text="Pilih Lokasi"
+                            android:text="Ubah Lokasi"
                             android:textColor="@color/orange"
                             android:textSize="14sp"
                             android:textStyle="bold"
@@ -209,7 +209,7 @@
                     android:orientation="vertical">
 
                     <Button
-                        android:id="@+id/btnSimpanPuskesmas"
+                        android:id="@+id/btnEditPuskesmas"
                         style="?android:attr/buttonBarButtonStyle"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"

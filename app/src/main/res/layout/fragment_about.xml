@@ -171,7 +171,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="1dp"
-                            android:text="@string/email"
+                            android:text="mypuskesmas@gmail.com"
                             android:textColor="@color/about_text" />
 
                     </LinearLayout>
