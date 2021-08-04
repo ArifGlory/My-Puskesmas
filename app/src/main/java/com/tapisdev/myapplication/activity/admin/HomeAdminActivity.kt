@@ -11,9 +11,11 @@ import com.google.firebase.firestore.Query
 import com.tapisdev.cateringtenda.base.BaseActivity
 import com.tapisdev.myapplication.MainActivity
 import com.tapisdev.myapplication.R
+import com.tapisdev.myapplication.activity.pengguna.HomePenggunaActivity
 import com.tapisdev.myapplication.activity.pengguna.LokasiPuskesmasActivity
 import com.tapisdev.myapplication.adapter.AdapterPuskesmas
 import com.tapisdev.myapplication.model.Puskesmas
+import com.tapisdev.mysteam.model.UserPreference
 import kotlinx.android.synthetic.main.activity_home_admin.*
 
 class HomeAdminActivity : BaseActivity() {
@@ -25,6 +27,7 @@ class HomeAdminActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_admin)
+        mUserPref = UserPreference(this)
 
         adapter = AdapterPuskesmas(listPuskesmas)
         rvPuskesAdmin.setHasFixedSize(true)
@@ -35,7 +38,7 @@ class HomeAdminActivity : BaseActivity() {
             logout()
             auth.signOut()
 
-            val i = Intent(this, MainActivity::class.java)
+            val i = Intent(this, HomePenggunaActivity::class.java)
             startActivity(i)
             finish()
         }

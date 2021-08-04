@@ -79,7 +79,11 @@ class DetailPuskesmasActivity : BaseActivity() {
             .load(puskesmas.foto)
             .into(ivFotoPuskesmas)
 
-        if (mUserPref.getJenisUser() != null){
+        if (mUserPref.getJenisUser().equals("admin")){
+            lineSetting.visibility = View.VISIBLE
+        }
+
+       /* if (mUserPref.getJenisUser() != null){
             if (mUserPref.getJenisUser().equals("admin")){
                 btnEditPuskesmas.visibility = View.VISIBLE
                 btnHapusPuskesmas.visibility = View.VISIBLE
@@ -87,6 +91,9 @@ class DetailPuskesmasActivity : BaseActivity() {
                 btnEditPuskesmas.visibility = View.GONE
                 btnHapusPuskesmas.visibility = View.GONE
             }
-        }
+        }else{
+            btnEditPuskesmas.visibility = View.GONE
+            btnHapusPuskesmas.visibility = View.GONE
+        }*/
     }
 }

@@ -12,6 +12,7 @@ import com.tapisdev.cateringtenda.base.BaseActivity
 import com.tapisdev.myapplication.R
 import com.tapisdev.myapplication.fragment.AboutFragment
 import com.tapisdev.myapplication.fragment.HomeFragment
+import com.tapisdev.mysteam.model.UserPreference
 import kotlinx.android.synthetic.main.activity_home_pengguna.*
 
 class HomePenggunaActivity : BaseActivity() {
@@ -19,7 +20,10 @@ class HomePenggunaActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_pengguna)
+        mUserPref = UserPreference(this)
         nav_view.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        logout()
+
         val fragment = HomeFragment.newInstance()
         addFragment(fragment)
 
