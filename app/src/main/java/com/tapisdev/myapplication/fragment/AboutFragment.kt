@@ -2,6 +2,7 @@ package com.tapisdev.myapplication.fragment
 
 import android.app.Dialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.*
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
@@ -27,6 +29,7 @@ import kotlin.collections.ArrayList
 class AboutFragment : BaseFragment() {
 
     lateinit var btnLoginAdmin : Button
+    lateinit var cvEmail : CardView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,10 +39,18 @@ class AboutFragment : BaseFragment() {
 
         val root = inflater.inflate(R.layout.fragment_about, container, false)
         btnLoginAdmin = root.findViewById(R.id.btnLoginAdmin)
+        cvEmail = root.findViewById(R.id.cvEmail)
 
         btnLoginAdmin.setOnClickListener {
             val i = Intent(requireContext(),MainActivity::class.java)
             startActivity(i)
+        }
+        cvEmail.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:")) // only email apps should handle this
+            intent.putExtra(Intent.EXTRA_EMAIL, "novar926@gmail.com");
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Aplikasi My Puskesmas");
+            startActivity(intent)
         }
 
         return root

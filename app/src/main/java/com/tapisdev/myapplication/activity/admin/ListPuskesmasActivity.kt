@@ -41,7 +41,7 @@ class ListPuskesmasActivity : BaseActivity() {
         getDataPuskes()
     }
 
-    fun getDataPuskes(){
+    open fun getDataPuskes(){
         /*val sdf = SimpleDateFormat("yyyy-MM-dd")
         val currentDate = sdf.format(Date())*/
         Log.d("pencarian","keyword "+keyword)
@@ -79,5 +79,10 @@ class ListPuskesmasActivity : BaseActivity() {
                 showErrorMessage("terjadi kesalahan : "+exception.message)
                 Log.d(TAG_GET,"err : "+exception.message)
             }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getDataPuskes()
     }
 }

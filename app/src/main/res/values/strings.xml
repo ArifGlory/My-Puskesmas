@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">My Puskesmas</string>
     <string name="welcome_back">Welcome Back</string>
+    <string name="app_description">My Puskesmas adalah aplikasi yang memudahkan pengguna dalam mencari puskesmas disekitar nya.\n
+        \nPengguna akan diberikan informasi alamat serta lokasi puskesmas secara akurat. Dan pengguna dapat melihat rute menuju puskesmas tersebut </string>
     <string name="sign_into_continue">Sign in to continue</string>
 
     <string name="drawer_open">Drawer Open</string>

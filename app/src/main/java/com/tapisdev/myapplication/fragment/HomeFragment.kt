@@ -116,6 +116,7 @@ class HomeFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
+        getDataPuskes()
     }
 
 }
