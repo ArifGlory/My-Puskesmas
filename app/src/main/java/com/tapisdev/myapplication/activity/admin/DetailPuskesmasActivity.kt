@@ -6,11 +6,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
 import com.tapisdev.cateringtenda.base.BaseActivity
 import com.tapisdev.myapplication.R
 import com.tapisdev.myapplication.activity.pengguna.LokasiPuskesmasActivity
+import com.tapisdev.myapplication.adapter.AdapterFasilitas
+import com.tapisdev.myapplication.model.Fasilitas
 import com.tapisdev.myapplication.model.Puskesmas
 import com.tapisdev.mysteam.model.UserPreference
 import es.dmoral.toasty.Toasty
@@ -21,7 +25,9 @@ class DetailPuskesmasActivity : BaseActivity() {
 
     lateinit var i : Intent
     lateinit var puskesmas : Puskesmas
-
+    var TAG_GET_Fasilitas = "getFasilitas"
+    lateinit var adapter: AdapterFasilitas
+    var listFasilitas = ArrayList<Fasilitas>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +36,10 @@ class DetailPuskesmasActivity : BaseActivity() {
         i = intent
 
         puskesmas = i.getSerializableExtra("puskesmas") as Puskesmas
+        adapter = AdapterFasilitas(listFasilitas)
+        rvFasilitas.setHasFixedSize(true)
+        rvFasilitas.layoutManager = LinearLayoutManager(this) as RecyclerView.LayoutManager?
+        rvFasilitas.adapter = adapter
 
         btnLokasi.setOnClickListener {
             val i = Intent(this,LokasiPuskesmasActivity::class.java)
@@ -67,33 +77,58 @@ class DetailPuskesmasActivity : BaseActivity() {
                 ) { sDialog -> sDialog.dismissWithAnimation() }
                 .show()
         }
+        ivAddFasilitas.setOnClickListener {
+            val i = Intent(this,AddFasilitasActivity::class.java)
+            i.putExtra("puskesmas",puskesmas as Serializable)
+            startActivity(i)
+        }
 
 
         updateUI()
+        getDataFasilitas()
     }
 
     fun updateUI(){
         tvNamaPuskesmas.setText(puskesmas.nama_puskesmas)
         tvAlamat.setText(puskesmas.alamat)
+        tvJamKerja.setText("Jam Kerja "+puskesmas.jam_kerja)
         Glide.with(this)
             .load(puskesmas.foto)
             .into(ivFotoPuskesmas)
 
         if (mUserPref.getJenisUser().equals("admin")){
             lineSetting.visibility = View.VISIBLE
+            ivAddFasilitas.visibility = View.VISIBLE
         }
+    }
 
-       /* if (mUserPref.getJenisUser() != null){
-            if (mUserPref.getJenisUser().equals("admin")){
-                btnEditPuskesmas.visibility = View.VISIBLE
-                btnHapusPuskesmas.visibility = View.VISIBLE
-            }else{
-                btnEditPuskesmas.visibility = View.GONE
-                btnHapusPuskesmas.visibility = View.GONE
+    fun getDataFasilitas(){
+        fasilitasRef.get().addOnSuccessListener { result ->
+            listFasilitas.clear()
+            //Log.d(TAG_GET_Sparepart," datanya "+result.documents)
+            for (document in result){
+                //Log.d(TAG_GET_Sparepart, "Datanya : "+document.data)
+                var fasilitas : Fasilitas = document.toObject(Fasilitas::class.java)
+                fasilitas.id_fasilitas = document.id
+                if (fasilitas.id_puskesmas.equals(puskesmas.id_puskesmas)){
+                    listFasilitas.add(fasilitas)
+                }
             }
-        }else{
-            btnEditPuskesmas.visibility = View.GONE
-            btnHapusPuskesmas.visibility = View.GONE
-        }*/
+
+            adapter.notifyDataSetChanged()
+
+        }.addOnFailureListener { exception ->
+            showErrorMessage("terjadi kesalahan : "+exception.message)
+            Log.d(TAG_GET_Fasilitas,"err : "+exception.message)
+        }
+    }
+
+    fun refreshList(){
+        getDataFasilitas()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        refreshList()
     }
 }

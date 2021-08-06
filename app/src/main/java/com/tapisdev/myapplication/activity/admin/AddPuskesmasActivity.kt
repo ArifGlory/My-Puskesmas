@@ -73,13 +73,17 @@ class AddPuskesmasActivity : BaseActivity(),PermissionHelper.PermissionListener 
     fun checkValidation(){
         var getName = edName.text.toString()
         var getAlamat = edAlamat.text.toString()
+        var getJamKerja = edJamKerja.text.toString()
 
 
         if (getName.equals("") || getName.length == 0){
             showErrorMessage("Nama Belum diisi")
         } else if (getAlamat.equals("") || getAlamat.length == 0){
             showErrorMessage("Alamat Belum diisi")
-        } else if (lat == 0.0){
+        } else if (getJamKerja.equals("") || getJamKerja.length == 0){
+            showErrorMessage("Jam Kerja Belum diisi")
+        }
+        else if (lat == 0.0){
             showErrorMessage("Lokasi belum dpilih")
         }else if (fileUri == null){
             showErrorMessage("anda belum memilih foto")
@@ -91,6 +95,7 @@ class AddPuskesmasActivity : BaseActivity(),PermissionHelper.PermissionListener 
                 lat.toString(),
                 lon.toString(),
                 currentDateTime.toString(),
+                getJamKerja,
                 "")
             uploadFoto()
         }

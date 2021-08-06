@@ -80,25 +80,30 @@ class EditPuskesmasActivity : BaseActivity() ,PermissionHelper.PermissionListene
     fun checkValidation(){
         var getName = edName.text.toString()
         var getAlamat = edAlamat.text.toString()
-        
+        var getJamKerja = edJamKerjaEdit.text.toString()
+
         if (getName.equals("") || getName.length == 0){
             showErrorMessage("Nama Belum diisi")
         } else if (getAlamat.equals("") || getAlamat.length == 0){
             showErrorMessage("Alamat Belum diisi")
-        } else if (lat == 0.0){
+        }else if (getJamKerja.equals("") || getJamKerja.length == 0){
+            showErrorMessage("Jam Kerja Belum diisi")
+        }
+        else if (lat == 0.0){
             showErrorMessage("Lokasi belum dpilih")
         }else if (fileUri == null){
-            updateDataOnly(getName,getAlamat)
+            updateDataOnly(getName,getAlamat,getJamKerja)
         }
         else {
-            updateDataWithFoto(getName,getAlamat)
+            updateDataWithFoto(getName,getAlamat,getJamKerja)
         }
     }
     
-    fun updateDataOnly(getName : String,getAlamat : String){
+    fun updateDataOnly(getName : String,getAlamat : String, getJamKerja : String){
         showLoading(this)
         puskesRef.document(puskesmas.id_puskesmas).update("nama_puskesmas",getName)
         puskesRef.document(puskesmas.id_puskesmas).update("alamat",getAlamat)
+        puskesRef.document(puskesmas.id_puskesmas).update("jam_kerja",getJamKerja)
         puskesRef.document(puskesmas.id_puskesmas).update("lat",lat.toString())
         puskesRef.document(puskesmas.id_puskesmas).update("lon",lon.toString()).addOnCompleteListener { task ->
             dismissLoading()
@@ -113,7 +118,7 @@ class EditPuskesmasActivity : BaseActivity() ,PermissionHelper.PermissionListene
         }
     }
     
-    fun updateDataWithFoto(getName: String,getAlamat: String){
+    fun updateDataWithFoto(getName: String,getAlamat: String,getJamKerja : String){
         showLoading(this)
 
         if (fileUri != null){
@@ -148,6 +153,7 @@ class EditPuskesmasActivity : BaseActivity() ,PermissionHelper.PermissionListene
                         puskesRef.document(puskesmas.id_puskesmas).update("foto",url)
                         puskesRef.document(puskesmas.id_puskesmas).update("nama_puskesmas",getName)
                         puskesRef.document(puskesmas.id_puskesmas).update("alamat",getAlamat)
+                        puskesRef.document(puskesmas.id_puskesmas).update("jam_kerja",getJamKerja)
                         puskesRef.document(puskesmas.id_puskesmas).update("lat",lat.toString())
                         puskesRef.document(puskesmas.id_puskesmas).update("lon",lon.toString()).addOnCompleteListener { task ->
                             dismissLoading()
@@ -185,6 +191,7 @@ class EditPuskesmasActivity : BaseActivity() ,PermissionHelper.PermissionListene
             .load(puskesmas.foto)
             .into(imagePuskesmas)
         textSelectImage.visibility = View.INVISIBLE
+        edJamKerjaEdit.setText(puskesmas.jam_kerja)
         
         lat = puskesmas.lat.toDouble()
         lon = puskesmas.lon.toDouble()

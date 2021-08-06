@@ -87,7 +87,44 @@
                             android:background="@drawable/edittext_border"
                             android:elevation="10dp"
                             android:hint="Alamat"
-                            android:inputType="text"
+                            android:inputType="textMultiLine"
+                            android:paddingStart="8dp"
+                            android:paddingBottom="4dp"
+                            android:paddingEnd="4dp"
+                            android:paddingTop="4dp"
+                            android:textColor="@color/add_properties_text"
+                            android:textColorHint="@color/add_properties_text"
+                            android:textSize="14sp"
+                            android:theme="@style/ThemeOverlay.AppCompat.Light"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="4dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lay_purpose_phone"
+                    android:layout_margin="2dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/edJamKerja"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/edittext_border"
+                            android:elevation="10dp"
+                            android:hint="Jam Kerja"
+                            android:inputType="textMultiLine"
                             android:paddingStart="8dp"
                             android:paddingBottom="4dp"
                             android:paddingEnd="4dp"

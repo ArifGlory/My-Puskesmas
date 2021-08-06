@@ -13,5 +13,6 @@ data class Puskesmas(
     var lat : String = "",
     var lon : String = "",
     var created_at : String = "",
+    var jam_kerja : String = "",
     var id_puskesmas : String = ""
 ) : Parcelable,java.io.Serializable
