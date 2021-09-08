@@ -11,6 +11,7 @@ import com.google.firebase.firestore.Query
 import com.tapisdev.cateringtenda.base.BaseActivity
 import com.tapisdev.myapplication.MainActivity
 import com.tapisdev.myapplication.R
+import com.tapisdev.myapplication.activity.PersebaranActivity
 import com.tapisdev.myapplication.activity.pengguna.HomePenggunaActivity
 import com.tapisdev.myapplication.activity.pengguna.LokasiPuskesmasActivity
 import com.tapisdev.myapplication.adapter.AdapterPuskesmas
@@ -52,6 +53,10 @@ class HomeAdminActivity : BaseActivity() {
         }
         lineSemuaPuskes.setOnClickListener {
             startActivity(Intent(this, ListPuskesmasActivity::class.java))
+            overridePendingTransition(R.anim.slide_in_right, R.anim.stay)
+        }
+        linePersebaranPuskes.setOnClickListener {
+            startActivity(Intent(this, PersebaranActivity::class.java))
             overridePendingTransition(R.anim.slide_in_right, R.anim.stay)
         }
 

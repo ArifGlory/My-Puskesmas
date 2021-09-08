@@ -15,6 +15,7 @@ import com.synnapps.carouselview.CarouselView
 import com.synnapps.carouselview.ImageListener
 import com.tapisdev.cateringtenda.base.BaseFragment
 import com.tapisdev.myapplication.R
+import com.tapisdev.myapplication.activity.PersebaranActivity
 import com.tapisdev.myapplication.activity.admin.ListPuskesmasActivity
 import com.tapisdev.myapplication.adapter.AdapterPuskesmas
 import com.tapisdev.myapplication.model.Puskesmas
@@ -30,6 +31,7 @@ class HomeFragment : BaseFragment() {
     lateinit var rv_puskesmas : RecyclerView
     lateinit var btn_view_all : Button
     lateinit var btn_submit_search : Button
+    lateinit var btn_map : Button
     lateinit var edt_search : EditText
 
     var TAG_GET = "getPuskes"
@@ -46,6 +48,7 @@ class HomeFragment : BaseFragment() {
         animation_view_puskes = root.findViewById(R.id.animation_view_puskes)
         rv_puskesmas = root.findViewById(R.id.rv_puskesmas)
         btn_view_all = root.findViewById(R.id.btn_view_all)
+        btn_map = root.findViewById(R.id.btn_map)
         btn_submit_search = root.findViewById(R.id.btn_submit_search)
         edt_search = root.findViewById(R.id.edt_search)
 
@@ -67,6 +70,10 @@ class HomeFragment : BaseFragment() {
                 i.putExtra("keyword",keyword)
                 startActivity(i)
             }
+        }
+        btn_map.setOnClickListener {
+            val i = Intent(requireActivity(), PersebaranActivity::class.java)
+            startActivity(i)
         }
 
         getDataPuskes()

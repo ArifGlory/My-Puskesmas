@@ -140,17 +140,36 @@
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
                     android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginBottom="3dp"
-                    app:backgroundTint="@null"
                     android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
                     android:background="@drawable/orange_button"
-                    android:paddingEnd="8dp"
                     android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
                     android:text="@string/more"
                     android:textColor="@color/white"
                     android:textSize="12sp"
-                    android:layout_alignParentRight="true" />
+                    app:backgroundTint="@null" />
+
+                <Button
+                    android:id="@+id/btn_map"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_toLeftOf="@+id/btn_view_all"
+                    android:background="@drawable/orange_button"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:text="Peta"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:backgroundTint="@null" />
+
             </RelativeLayout>
 
             <LinearLayout

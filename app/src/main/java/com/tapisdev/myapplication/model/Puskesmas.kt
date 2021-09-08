@@ -2,9 +2,7 @@ package com.tapisdev.myapplication.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-import kotlinx.serialization.Serializable
 
-@Serializable
 @Parcelize
 data class Puskesmas(
     var nama_puskesmas : String = "",
